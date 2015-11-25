@@ -44,7 +44,7 @@ def parse_file(file_name, heading, types):
 
 def parse_track_file(filename):
     file_name = filename
-    heading = ["id", "x", "px", "y", "py", "z", "pz", "bx", "by", "bz"]
+    heading = ["id", "x", "px", "y", "py", "z", "pz"]
     types = [str]+[float]*(len(heading)-1)
     data = parse_file(file_name, heading, types)
     data = r_phi_track_file(data)
@@ -85,6 +85,25 @@ def plot_x_y_projection(step_list):
     RootObjects.canvases.append(canvas)
     RootObjects.graphs.append(graph)
     return canvas, axes, graph
+
+def plot_x_z_projection(step_list):
+    canvas = ROOT.TCanvas("x_z_projection", "x_z_projection")
+    axes = ROOT.TH2D("x_z_projection_axes", ";phi [rad];z [mm]",
+                     1000, -math.pi, math.pi,
+                     1000, -20., 20.)
+    axes.SetStats(False)
+    graph = ROOT.TGraph(len(step_list))
+    canvas.Draw()
+    axes.Draw()
+    for i in range(len(step_list["x"])):
+        graph.SetPoint(i, math.atan2(step_list["y"][i], step_list["x"][i]), step_list["z"][i])
+    graph.Draw("l")
+    canvas.Update()
+    RootObjects.histograms.append(axes)
+    RootObjects.canvases.append(canvas)
+    RootObjects.graphs.append(graph)
+    return canvas, axes, graph
+
 
 def plot_beam_pipe(inner_radius, outer_radius, canvas=None):
     n_steps = 361 # number of azimuthal steps
@@ -144,9 +163,10 @@ def plot_b_field(step_list):
     return canvas, axes, graph
 
 def main():
-    step_list = parse_track_file("tmp/tune/0/Tune-trackOrbit.dat")
+    step_list = parse_track_file("tmp/find_closed_orbits/Kurri_ADS_Ring-trackOrbit.dat")
     canvas, axes, graph = plot_x_y_projection(step_list)
     plot_beam_pipe(3900., 5500., canvas)
+    canvas, axes, graph = plot_x_z_projection(step_list)
 
 if __name__ == "__main__":
     main()
