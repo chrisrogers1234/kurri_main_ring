@@ -165,7 +165,7 @@ class Tune(object):
 
 def main():
     tune = Tune(None,
-                "lattices/KurriMainRingTuneComparison/closed_orbits.ref ",
+                "lattices/KurriMainRingTuneComparison/closed_orbits.ref",
                 10.99,
                 15.01)
     tune.find_tune_dphi()
