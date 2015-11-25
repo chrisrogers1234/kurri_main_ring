@@ -1,3 +1,7 @@
+"""
+Plot a single closed orbit (once tracking has finished)
+"""
+
 import copy
 import math
 

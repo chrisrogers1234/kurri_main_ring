@@ -1,3 +1,7 @@
+"""
+Plot the closed orbit as a function of energy
+"""
+
 import sys
 import json
 
@@ -52,8 +56,6 @@ def plot_tof(data):
     graph.Draw("p")
     graph.Fit("pol3")
     canvas.Update()
-    #canvas.Print("plots/time_of_flight.png")
-    #canvas.Print("plots/time_of_flight.root")
 
 def main():
     data = load_file()
