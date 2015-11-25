@@ -54,12 +54,12 @@ rf_amplitude: POLYNOMIAL_TIME_DEPENDENCE, P0=1.;
 rf_phase: POLYNOMIAL_TIME_DEPENDENCE, P0=phi;
 
 patch_offset: LOCAL_CARTESIAN_OFFSET, end_position_x=0.114049, end_position_y=0., end_normal_x=1., end_normal_y=0.;
-triplet: SBEND3D, FMAPFN="fieldmaps/tosca_map_f810_d1020_massaged.table", LENGTH_UNITS=10., FIELD_UNITS=1e-3;
+triplet: SBEND3D, FMAPFN="fieldmaps/TOSCA_cyli13_massaged.H", LENGTH_UNITS=10., FIELD_UNITS=1e-3, POLYNOMIAL_ORDER=1, SMOOTHING_ORDER=1;
 
 rf_cavity: VARIABLE_RF_CAVITY, PHASE_MODEL="RF_PHASE", AMPLITUDE_MODEL="RF_AMPLITUDE", FREQUENCY_MODEL="RF_FREQUENCY", L=100., HEIGHT=200., WIDTH=2000.;
 cavity_offset: LOCAL_CARTESIAN_OFFSET, end_position_x=-50., end_position_y=0., end_normal_x=1., end_normal_y=0.;
 
-l1: Line = (ringdef, probe1, triplet, triplet, triplet, triplet, triplet, triplet, triplet, triplet, triplet, triplet, triplet, triplet , patch_offset, cavity_offset, rf_cavity, cavity_offset);
+l1: Line = (ringdef, probe1, triplet, triplet, triplet, triplet, triplet, triplet, triplet, triplet, triplet, triplet, triplet, triplet, cavity_offset, rf_cavity, cavity_offset);
 
 Dist1: DISTRIBUTION, DISTRIBUTION=fromfile, FNAME="distributions/reference_particle.beam";
 
