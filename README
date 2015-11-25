@@ -5,9 +5,14 @@ Simulation model for the Kurri Main Ring.
 
 Running
 =======
-Lattices should be run from the root directory, for example
+Lattices and scripts should be run from the root directory, for example
 
 path/to/opal lattices/KurriMainRingWithAcceleration/KurriMainRingWithAcceleration.in
+
+or
+
+python scripts/find_closed_orbits.py
+
 
 Directories
 ===========
@@ -34,6 +39,7 @@ Directories are:
              likes
     - plot_closed_orbit.py: plot the closed orbit as a function of energy
     - plot_orbit.py: plot an orbit as a function of x, y, z
-    - opal_tracking/_opal_tracking.py: compatibility layer for interface to XBOA
+    - opal_tracking/_opal_tracking.py: compatibility layer for interface to
+             XBOA
   - tmp: ephemeral tracking output goes here
   - plots: ephemeral plots go here
