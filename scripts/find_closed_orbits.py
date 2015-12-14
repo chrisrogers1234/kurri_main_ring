@@ -1,5 +1,5 @@
 """
-Script to find the tune; drives xboa EllipseClosedOrbitFinder algorithm
+Script to find the closed orbit; drives xboa EllipseClosedOrbitFinder algorithm
 """
 
 
@@ -53,6 +53,10 @@ def find_closed_orbit(energy, nturns, step, poly_order, smooth_order, seed):
     """
     print "Energy", energy, "NTurns", nturns, "StepSize", step, "Seed", seed, "Poly Order", poly_order, "Smooth Order", smooth_order
     tmp_dir = "tmp/find_closed_orbits/"
+    try:
+        os.makedirs(tmp_dir)
+    except OSError: # maybe the dir already exists
+        pass
     subs = {
         '__energy__':energy,
         '__stepsize__':step,
@@ -92,13 +96,13 @@ def find_closed_orbit(energy, nturns, step, poly_order, smooth_order, seed):
     return tracking.last[0]
 
 if __name__ == "__main__":
-      next_seed = [4411.02, 0., 0.] # [5154.51, 0.0] # 
+      next_seed = [4411.02, 0., 0.] # 
       fout = open('find_closed_orbit.out', 'w')
-      energy_list = range(11, 12, 1)
+      energy_list = range(11, 151, 1)
       for i, energy in enumerate(energy_list):
           is_batch = len(energy_list) > 5 and i > 4
           ROOT.gROOT.SetBatch(is_batch)
-          hit_list = find_closed_orbit(energy, 5.1, 10, 1, 1, next_seed)
+          hit_list = find_closed_orbit(energy, 10.1, 1, 1, 1, next_seed)
           next_seed = [hit_list[0]["x"], 0.]
           output = [energy]+[[hit["x"], hit["t"]] for hit in hit_list]
           print >> fout, json.dumps(output)
