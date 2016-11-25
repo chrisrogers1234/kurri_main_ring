@@ -54,6 +54,9 @@ class OpalTracking(TrackingBase):
         self.lattice_filename = lattice_filename
         self.output_name = output_filename
         self.opal_path = opal_path
+        if not os.path.isfile(self.opal_path):
+            raise RuntimeError(str(self.opal_path)+" does not appear to exist."+\
+                  " Check that this points to the opal executable.")
         self.ref = reference_hit
         self.last = None
         self.allow_duplicate_station = False
@@ -118,6 +121,7 @@ class OpalTracking(TrackingBase):
             os.remove(self.output_name) # make sure we don't load an old PROBE file
         except OSError:
             pass
+        print self.opal_path
         proc = subprocess.Popen([self.opal_path, self.lattice_filename],
                                 stdout=log_file,
                                 stderr=subprocess.STDOUT)
